@@ -7,11 +7,6 @@ st.set_option('deprecation.showPyplotGlobalUse', False)'''
 
 def app():
     st.title("Crime Analysis Web Application 👮🏻‍♀️🚨")
-    
-    # Sidebar - File Upload
-    with st.sidebar.header("**File Upload**"):
-        uploaded_file = st.sidebar.file_uploader("Upload your CSV data", type= ['csv'], accept_multiple_files= False)
-        st.sidebar.markdown("[Example of CSV file](https://www.kaggle.com/currie32/crimes-in-chicago)")
 
     @st.cache(persist= True)
     def load_data(selected_year):
@@ -39,19 +34,11 @@ def app():
 
     # Main panel
     st.subheader("**Dataset**")
-    if uploaded_file is not None:
-        df = pd.read_csv(uploaded_file)
-        st.markdown("Raw data")
-        st.write(df.head(10))
-        count_plot(df['Primary Type'], "Top Crimes", 'Viridis')
-        count_plot(df['Location Description'], "Top Crime Locations", 'Viridis')
-    else: 
-        st.info("Awaiting for the CSV file to be uploaded! Here is the year-wise distribution of inbuilt dataset")
-        st.markdown("Choose the Year for data to be displayed")
-        selected_year = st.selectbox('Year', list(reversed(range(2001, 2022))))
+    st.sidebar.markdown("Choose the Year for data to be displayed")
+    selected_year = st.sidebar.selectbox('Year', list(reversed(range(2001, 2022))))
 
-        df = load_data(selected_year)
-        st.write(df.head(10))
-        count_plot(df['Primary Type'], "Top Crimes", 'Viridis')
-        count_plot(df['Location Description'], "Top Crime Locations", 'Plasma')
+    df = load_data(selected_year)
+    st.write(df.head(10))
+    count_plot(df['Primary Type'], "Top Crimes", 'Viridis')
+    count_plot(df['Location Description'], "Top Crime Locations", 'Plasma')
 
