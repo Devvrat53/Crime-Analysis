@@ -12,8 +12,15 @@ def app():
         df = pd.read_csv("/Users/devvratmungekar/Downloads/chicago-subset-cleaned.csv")
         return df
 
+    def categories_func():
+        Number_crimes = df['Primary Type'].value_counts()[:15]
+        values = Number_crimes.values
+        categories = pd.DataFrame(data= Number_crimes.index, columns=["Primary Type"])
+        categories['values'] = values
+        treemap(categories, 'Major 15 Crimes in Chicago', ['Primary Type'], categories['values'])
+
     # Count Plot
-    def plot_counts(feature_type, title, color):
+    '''def plot_counts(feature_type, title, color):
         # Sidebar - Slider
         plot_df = pd.DataFrame(feature_type.value_counts()[:15])
         plot_df.columns = ["Freq"]
@@ -22,6 +29,11 @@ def app():
         fig.update_traces(texttemplate="%{text:.2s}", textposition="outside")
         fig.update_layout(uniformtext_minsize=8, uniformtext_mode="hide", width= 900, height= 600)
         fig.update_layout(title_text= title)
+        st.write(fig)'''
+
+    def treemap(categories, title, path, values):
+        fig = px.treemap(categories, path= path, values= values, height= 700, title= title, color_discrete_sequence= px.colors.sequential.RdBu)
+        fig.data[0].textinfo = 'label+text+value'
         st.write(fig)
 
     # Pie chart for Years of Crime
@@ -59,7 +71,8 @@ def app():
 
     # Main Panel
     df = load_data()
-    plot_counts(df["Primary Type"], "Top 15 Crimes", 'Plasma')
-    plot_counts(df['Location Description'], "Top 15 Crime Locations", 'Viridis')
+    categories_func()
+    #plot_counts(df["Primary Type"], "Top 15 Crimes", 'Plasma')
+    #plot_counts(df['Location Description'], "Top 15 Crime Locations", 'Viridis')
     years_pie()
     arrests()
