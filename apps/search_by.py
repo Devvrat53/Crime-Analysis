@@ -5,13 +5,13 @@ def app():
     st.title("Crime Analysis Web Application 👮🏻‍♀️🚨")
     
     def load_data():
-        df = pd.read_csv("/Users/devvratmungekar/Downloads/chicago-subset-cleaned.csv")
+        df = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/chicago-subset-cleaned.csv")
         return df
 
     def load_year_data():
         st.markdown("Choose the Year for data to be displayed")
         selected_year = st.selectbox('Year', list(reversed(range(2001, 2022))))
-        df_year = pd.read_csv("/Users/devvratmungekar/Downloads/Year_Wise_Data/" + str(selected_year) + ".csv")
+        df_year = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/Year_Wise_Data/" + str(selected_year) + ".csv")
         return df_year
 
     st.sidebar.markdown("Select the Field to be searched")

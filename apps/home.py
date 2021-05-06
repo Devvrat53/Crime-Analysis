@@ -5,8 +5,12 @@ def app():
     st.title("Crime Analysis Web Application 👮🏻‍♀️🚨")
     #st.subheader("This is the web-application for analysing the data from the police record and provide meaning prediction from the same.")
 
+    region = st.sidebar.radio("Select the region", ('Maharashtra', 'Chicago'))
+    if region == 'Chicago':
     # GIF from Local system
-    file_ = open("/Users/devvratmungekar/Downloads/1989_2019_permits.gif", "rb")
+        file_ = open("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/1989_2019_permits.gif", "rb")
+    else:
+        file_ = open("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/1989_2019_permits.gif", "rb")
     contents = file_.read()
     data_url = base64.b64encode(contents).decode("utf-8")
     file_.close()

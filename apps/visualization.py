@@ -8,8 +8,11 @@ def app():
     st.title("Crime Analysis Web Application 👮🏻‍♀️🚨")
     
     @st.cache(persist= True)
-    def load_data():
-        df = pd.read_csv("/Users/devvratmungekar/Downloads/chicago-subset-cleaned.csv")
+    def load_data(region):
+        if region == 'Chicago':
+            df = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/chicago-subset-cleaned.csv")
+        else:
+            df = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/Maharashtra_Synthetic_dataset.csv")
         return df
 
     def categories_func():
@@ -17,7 +20,7 @@ def app():
         values = Number_crimes.values
         categories = pd.DataFrame(data= Number_crimes.index, columns=["Primary Type"])
         categories['values'] = values
-        treemap(categories, 'Major 15 Crimes in Chicago', ['Primary Type'], categories['values'])
+        treemap(categories, 'Major 15 Crimes', ['Primary Type'], categories['values'])
 
     # Count Plot
     '''def plot_counts(feature_type, title, color):
@@ -58,11 +61,11 @@ def app():
         line_plot = arrest_per_year[arrest_per_year['Arrest'] == select_arrest]['Percentage']
         fig= plt.figure(figsize=(12, 10))
         if select_arrest == True:
-            plt.title('Percentages of successful arrests from 2001 to 2021')
+            plt.title('Percentages of successful arrests')
             plt.xlabel("Year")
             plt.ylabel("Successful Arrest Percentage")
         elif select_arrest == False:
-            plt.title('Percentages of unsuccessful arrests from 2001 to 2021')
+            plt.title('Percentages of unsuccessful arrests')
             plt.xlabel("Year")
             plt.ylabel("Unsuccessful Arrest Percentage")
         plt.xticks(line_plot.index, line_plot.index.values)
@@ -70,7 +73,8 @@ def app():
         st.pyplot(fig)
 
     # Main Panel
-    df = load_data()
+    region = st.sidebar.radio("Select the region", ('Maharashtra', 'Chicago'))
+    df = load_data(region)
     categories_func()
     #plot_counts(df["Primary Type"], "Top 15 Crimes", 'Plasma')
     #plot_counts(df['Location Description'], "Top 15 Crime Locations", 'Viridis')

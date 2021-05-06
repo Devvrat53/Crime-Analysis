@@ -9,16 +9,25 @@ from streamlit_folium import folium_static
 def app():
     st.title("Crime Analysis Web Application 👮🏻‍♀️🚨")
 
-    st.sidebar.markdown("Choose the Year for data to be displayed")
-    selected_year = st.sidebar.selectbox('Year', list(reversed(range(2003, 2022))))
+    region = st.sidebar.radio("Select the region", ('Maharashtra', 'Chicago'))
+    if region == 'Chicago':
+        st.sidebar.markdown("Choose the Year for data to be displayed")
+        selected_year = st.sidebar.selectbox('Year', list(reversed(range(2003, 2022))))
+    else:
+        st.sidebar.markdown("Choose the Year for data to be displayed")
+        selected_year = st.sidebar.selectbox('Year', list(reversed(range(2010, 2020))))    
+    
 
     @st.cache(persist= True, allow_output_mutation= True)
-    def load_data(selected_year):
-        df = pd.read_csv("/Users/devvratmungekar/Downloads/Year_Wise_Data/" + str(selected_year) + ".csv")
+    def load_data(selected_year, region):
+        if region == 'Chicago':
+            df = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/Year_Wise_Data/" + str(selected_year) + ".csv")
+        else:
+            df = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/Maharashtra Year-wise Data/" + str(selected_year) + ".csv")
         return df
 
-    def choropleth_ward_year(selected_year):
-        df = load_data(selected_year)
+    def choropleth_ward_year(selected_year, region):
+        df = load_data(selected_year, region)
         df_Wards = df['Ward'].value_counts()
         result = pd.DataFrame(data= df_Wards.values, index=df_Wards.index, columns=['Count'])
         result = result.reindex(df.Ward.unique())
@@ -53,8 +62,8 @@ def app():
 
         folium_static(map1)
 
-    def choropleth_district_year(selected_year):
-        df = load_data(selected_year)
+    def choropleth_district_year(selected_year, region):
+        df = load_data(selected_year, region)
 
         df_District = df['District'].value_counts()
         result_District = pd.DataFrame(data= df_District.values, index=df_District.index, columns=['Count'])
@@ -87,8 +96,8 @@ def app():
 
         folium_static(map2)
 
-    def choropleth_community_year(selected_year):
-        df = load_data(selected_year)
+    def choropleth_community_year(selected_year, region):
+        df = load_data(selected_year, region)
 
         df_community = df['Community Area'].value_counts()
         result_community = pd.DataFrame(data= df_community.values, index=df_community.index, columns=['Count'])
@@ -122,13 +131,17 @@ def app():
 
         folium_static(map3)
 
-    ward_checkbox = st.sidebar.checkbox("Choropleth map of Ward")
-    district_checkbox = st.sidebar.checkbox("Choropleth map of District")
-    community_checkbox = st.sidebar.checkbox("Choropleth map of Community Area")
+    if region == 'Chicago':
+        ward_checkbox = st.sidebar.checkbox("Choropleth map of Ward")
+        district_checkbox = st.sidebar.checkbox("Choropleth map of District")
+        community_checkbox = st.sidebar.checkbox("Choropleth map of Community Area")
 
-    if ward_checkbox:
-        choropleth_ward_year(selected_year)
-    if district_checkbox:
-        choropleth_district_year(selected_year)
-    if community_checkbox:
-        choropleth_community_year(selected_year)
+        if ward_checkbox:
+            choropleth_ward_year(selected_year, region)
+        if district_checkbox:
+            choropleth_district_year(selected_year, region)
+        if community_checkbox:
+            choropleth_community_year(selected_year, region)
+    else:
+        maharashtra_checkbox = st.sidebar.checkbox("Choropleth map of the District")
+        

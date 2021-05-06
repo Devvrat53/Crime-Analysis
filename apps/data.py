@@ -9,11 +9,11 @@ def app():
     st.title("Crime Analysis Web Application 👮🏻‍♀️🚨")
 
     def yearwise_data():
-        df = pd.read_csv("/Users/devvratmungekar/Downloads/chicago-subset-cleaned-bigquery.csv")
+        df = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/chicago-subset-cleaned.csv")
         df['Date/Time of Crime'] = pd.to_datetime(df['Date/Time of Crime'], format = '%Y-%m-%d %H:%M:%S')
         for i in range(2003, 2022):
             df_i = df[df['Year'] == i]
-            df_i.to_csv('/Users/devvratmungekar/Downloads/Year_Wise_Data' + str(i) + '.csv')
+            df_i.to_csv('/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/Year_Wise_Data/' + str(i) + '.csv')
 
     def Bigquery():
         ## create a service account, download the json file and export the credentials in the terminal
@@ -91,11 +91,11 @@ def app():
         df['Time'] = pd.to_datetime(df['Time']).dt.time 
         df['Date/Time of Crime'] = pd.to_datetime(df['Date/Time of Crime'],format = '%m/%d/%Y %I:%M:%S %p')
         # Saving the dataset
-        df.to_csv("/Users/devvratmungekar/Downloads/chicago-subset-cleaned-bigquery.csv", index= False)
+        df.to_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/chicago-subset-cleaned.csv", index= False)
 
     @st.cache(persist= True)
     def load_data():
-        df = pd.read_csv("/Users/devvratmungekar/Downloads/chicago-subset-cleaned.csv")
+        df = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/chicago-subset-cleaned.csv")
         return df
 
     # Main panel
@@ -104,10 +104,18 @@ def app():
     if bigquery_check:
         st.info("Original Dataset from BigQuery!")
         Bigquery()
+
     og_check = st.sidebar.checkbox("Click to see the Cleaned dataset")
     if og_check:
         st.markdown("Cleaned dataset")
         df = load_data()
         st.write(df.head(1000))
         st.write(df.shape)
+    
+    maha_check = st.sidebar.checkbox("Maharashtra dataset")
+    if maha_check:
+        st.markdown("Synthetic dataset for Maharashtra")
+        df_maha = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/Maharashtra_Synthetic_dataset.csv")
+        st.write(df_maha.head(1000))
+        st.write(df_maha.shape)
       

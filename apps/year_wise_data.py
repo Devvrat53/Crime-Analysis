@@ -9,8 +9,11 @@ def app():
     st.title("Crime Analysis Web Application 👮🏻‍♀️🚨")
 
     @st.cache(persist= True)
-    def load_data(selected_year):
-        df = pd.read_csv("/Users/devvratmungekar/Downloads/Year_Wise_Data/" + str(selected_year) + ".csv")
+    def load_data(selected_year, region):
+        if region == 'Chicago':
+            df = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/Year_Wise_Data/" + str(selected_year) + ".csv")
+        else:
+            df = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/Maharashtra Year-wise Data/" + str(selected_year) + ".csv")
         return df
 
     def count_plot(feature_type, title, color):
@@ -34,11 +37,19 @@ def app():
 
     # Main panel
     st.subheader("**Dataset**")
+    region = st.sidebar.radio("Select the region", ('Maharashtra', 'Chicago'))
     st.sidebar.markdown("Choose the Year for data to be displayed")
-    selected_year = st.sidebar.selectbox('Year', list(reversed(range(2001, 2022))))
+    if region == 'Chicago':
+        selected_year = st.sidebar.selectbox('Year', list(reversed(range(2001, 2022))))
+        df = load_data(selected_year, region)
+        st.write(df.head(10))
+        count_plot(df['Primary Type'], "Top Crimes", 'Viridis')
+        count_plot(df['Location Description'], "Top Crime Locations", 'Plasma')
+    else:
+        selected_year = st.sidebar.selectbox('Year', list(reversed(range(2010, 2020))))
+        df = load_data(selected_year, region)
+        st.write(df.head(10))
+        count_plot(df['Primary Type'], "Top Crimes", 'Viridis')
+        count_plot(df['Location'], "Top Crime Locations", 'Plasma')
 
-    df = load_data(selected_year)
-    st.write(df.head(10))
-    count_plot(df['Primary Type'], "Top Crimes", 'Viridis')
-    count_plot(df['Location Description'], "Top Crime Locations", 'Plasma')
 

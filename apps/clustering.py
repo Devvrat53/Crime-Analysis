@@ -17,7 +17,7 @@ def app():
 
     @st.cache(persist= True)
     def load_data(selected_year):
-        df = pd.read_csv("/Users/devvratmungekar/Downloads/Year_Wise_Data/" + str(selected_year) + ".csv")
+        df = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/Year_Wise_Data/" + str(selected_year) + ".csv")
         df['Date/Time of Crime'] = pd.to_datetime(df['Date/Time of Crime'], format= '%Y-%m-%d %H:%M:%S')
         return df
 
