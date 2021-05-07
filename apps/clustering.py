@@ -10,19 +10,17 @@ from sklearn.cluster import DBSCAN
 def app():
     st.title("Crime Analysis Web Application 👮🏻‍♀️🚨")
 
-    # Sidebar
-    st.sidebar.markdown("Choose the Year for data to be displayed")
-    selected_year = st.sidebar.selectbox('Year', list(reversed(range(2003, 2022))))
-    hour = st.sidebar.slider("Hour to look", 0, 24)
-
     @st.cache(persist= True)
-    def load_data(selected_year):
-        df = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/Year_Wise_Data/" + str(selected_year) + ".csv")
+    def load_data(selected_year, region):
+        if region == 'Chicago':
+            df = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/Year_Wise_Data/" + str(selected_year) + ".csv")
+        else:
+            df = pd.read_csv("/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/data/Maharashtra_Synthetic_dataset.csv")
         df['Date/Time of Crime'] = pd.to_datetime(df['Date/Time of Crime'], format= '%Y-%m-%d %H:%M:%S')
         return df
 
-    def dbscan_cluster(selected_year, hour):
-        df = load_data(selected_year)
+    def dbscan_cluster(selected_year, region, hour):
+        df = load_data(selected_year, region)
         data1 = df[df['Date/Time of Crime'].dt.hour == hour]
         # Metric custom function for DBSCAN
         def greatcircle(x, y):
@@ -61,5 +59,16 @@ def app():
                     fill = col).add_to(m)
         folium_static(m)
     
-    # Main
-    dbscan_cluster(selected_year, hour)
+    # Sidebar
+    region = st.sidebar.radio("Select the region", ('Chicago', 'Maharashtra'))
+    if region == 'Chicago':
+        st.sidebar.markdown("Choose the Year for data to be displayed")
+        selected_year = st.sidebar.selectbox('Year', list(reversed(range(2003, 2022))))
+        hour = st.sidebar.slider("Hour to look", 0, 24)
+        dbscan_cluster(selected_year, region, hour)
+    else:
+        st.sidebar.markdown("Choose the Year for data to be displayed")
+        selected_year = st.sidebar.selectbox('Year', list(reversed(range(2010, 2020))))
+        hour = st.sidebar.slider("Hour to look", 0, 24)
+        dbscan_cluster(selected_year, region, hour)
+    
