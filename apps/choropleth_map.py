@@ -8,7 +8,6 @@ from streamlit_folium import folium_static
 
 def app():
     st.title("Crime Analysis Web Application 👮🏻‍♀️🚨")
-
     region = st.sidebar.radio("Select the region", ('Maharashtra', 'Chicago'))
     if region == 'Chicago':
         st.sidebar.markdown("Choose the Year for data to be displayed")
@@ -59,7 +58,6 @@ def app():
         # Display Region Label
         choropleth1.geojson.add_child(
             folium.features.GeoJsonTooltip(['ward'], labels= False)'''
-
         folium_static(map1)
 
     def choropleth_district_year(selected_year, region):
@@ -93,7 +91,6 @@ def app():
         choropleth2.geojson.add_child(
             folium.features.GeoJsonTooltip(['dist_num'], labels= False)
         )'''
-
         folium_static(map2)
 
     def choropleth_community_year(selected_year, region):
@@ -105,7 +102,6 @@ def app():
         result_community = result_community.reset_index()
         result_community.rename({'index': 'area_num_1'}, inplace= True, axis= 1)
         result_community['area_num_1'] = result_community['area_num_1'].astype('str')
-        result_community
 
         st.subheader('Number of incidents per community area')
         map3 = folium.Map(location= (41.895140898, -87.624255632), zoom_start= 10)
@@ -128,9 +124,36 @@ def app():
         choropleth.geojson.add_child(
             folium.features.GeoJsonTooltip(['area_num_1'], labels= False)
         )'''
-
         folium_static(map3)
 
+    def choropleth_maharashra(selected_year, region):
+        df = load_data(selected_year, region)
+
+        df_District = df['cartodb_id'].value_counts()
+        result_District = pd.DataFrame(data= df_District.values, index= df_District.index, columns= ['Count'])
+        result_District = result_District.reindex(df.cartodb_id.unique())
+        result_District = result_District.reset_index()
+        result_District.rename({'index': 'cartodb_id'}, inplace= True, axis= 1)
+
+        st.subheader('Number of incidents per district in Maharashtra')
+        map4 = folium.Map(location= [19.7515, 75.7139], zoom_start= 7)
+        district_geojson = json.load(open('/Users/devvratmungekar/OneDrive/Sem VII/BE Major Project/GeoJSON_files/maharashtra_districts.geojson'))
+
+        choropleth4 = folium.Choropleth(
+            geo_data= district_geojson, 
+            data= result_District, 
+            columns= ['cartodb_id', 'Count'], 
+            key_on= 'feature.properties.cartodb_id', 
+            fill_color = 'YlOrRd', 
+            fill_opacity = 0.7, 
+            line_opacity = 0.2, 
+            smooth_factor = 0,
+            legend_name = 'Number of incidents per district'
+        ).add_to(map4)
+
+        folium_static(map4)
+    
+    # Sidebar panel
     if region == 'Chicago':
         ward_checkbox = st.sidebar.checkbox("Choropleth map of Ward")
         district_checkbox = st.sidebar.checkbox("Choropleth map of District")
@@ -144,4 +167,6 @@ def app():
             choropleth_community_year(selected_year, region)
     else:
         maharashtra_checkbox = st.sidebar.checkbox("Choropleth map of the District")
+        if maharashtra_checkbox:
+            choropleth_maharashra(selected_year, region)
         
