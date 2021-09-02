@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "chicago-crimes-02092021",
+  "private_key_id": "c4972daa2ad4ff6ee233c7bd5e95f876229e0b9b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDFT+s3KU2rXsBn\ndGo8a81PoHVsubSewLILjJSXxey89Z9NnTsVEk91HctOyr42kPthRXDyft++6TiA\nVLdidJQaWGEa4deszCAt69/zSy22vNhj8FEK8t5O+JmdjXUaczSZIfra0NUnZMxW\nTXQaOou9fpKbqAXJNgi4myFuRP39uL4RtnVLYFe8SgDqDbY9kWtjAQvnyiBD7wtz\nMjYns9mYfWADH3tYkVF6r6SuEmjHOvp/8OZo9BHYuXpGM0NPjSe8ulY+i208shNQ\nELsqvgtaPFew2fDJOlTgeIuOrF8CxzFwfgjpXD4viKWR3vw50rZ2AIx4ZmyvA2pF\nTN928L3xAgMBAAECggEAJuZVKKhfdCg3hY3pfeUA8rBfRiKsjdnOoEFEcFGolS5V\njE8xvTtBaAUKNov5CTf3H1u5400JHpHLPl21U9dI9ZKz/kFFLH+H3pXQrp4FMrAz\ndyyDRcXQ9z/CxVGEo0TQO1p8ItSmGWChemhFugAN2buQ+tga3+rjuEV5R0yZyIHh\nE7ymSJOwFC+gM7h4VIoTE7/VXFntyXMHrNiFhh2mPqqug+1K8cgIyo5ht8j4JqOe\nGioNFPMRbF3E149P+19CxES9QEEWStSV6Vcco5PrYFpEabjh8+eTpzO+icZ7zNhv\nOGW9YZwRz0ZY3m4MkT8WICrIV/95rJ5kbYzuq8tmGwKBgQD2gAhVBoAbw+ZCiwlw\nqfbIy2htAXiR1z2/PKJK9fF/hD9V9XclAH0kvMQf9pEWcTej+iM8c8zE2Cu5eCNm\n0V3Rdm+IaouO7HVyPTKfzC8NQ3GmiUteFzfVrfrv8dlqq9Wrk6wZEhZIlPtQizJi\nEaFTmWpa/BPH+0A7gVWt6CFb6wKBgQDM6pk7enZHU22xNUk90cVNFzJcdiECtlfH\nKIAo4YLcwzJgHGwi91wYo6npG79rFz0W5+qqe5CuaBC+7REl+jjsihV5xQOIcYag\nst7wglIbTHGdgnmgcLGtMtbkfHVTCqCQUUjSdeQaLC2SHYzuLhqsLSj2HnC095o6\nMGhS+otikwKBgFvIHFIcU4MDFC9euasbfeoR4tYDoDMdY75bA0rJ/JuwUCzfcvdy\nESamqpgEJM2oZkFGF+ygaXQ50T4Dv5q/BiHB6ZFvqnsTDD/3DWx2iGZ14FFT+Z4V\nIxMK7s58zKltRefW2lOTanyoDFNXIPFnAxyvmOw7w9nIcYg2hgJ01kb1AoGASh59\nKHdmOuxhW9yzTkoG/JhsXedYj1uXKnFq0d6n7+Qm337IWmlwhXUFa0zfEwRH03Y1\nek7RiVQY4oZrUnpMhrp3hCEP4xV1JcEtRH9O5ZLj8Z4VEkRQ8B3YfrLJ2SyZ4TmV\nhpKf3BuorBZGOIyylx6Kl2NxTvPUdEG4KnN3YUMCgYEAwZZF0jsNNB2PgZjF4QND\n/1+UOTNvPjzlm82+RpHmJT1nrNctN9Vb0RilppN7EMbv7Z+qiEV45tZEhoZYP0R+\njWj5DMJ3EGD3O4u+Mwl0jQhwFtIA7B+TDA36E8zq5BLHshcL9COPID0CcoFcASId\ntsGeaiC8Dca5olUXMxFtm4Q=\n-----END PRIVATE KEY-----\n",
+  "client_email": "chicagocrimes@chicago-crimes-02092021.iam.gserviceaccount.com",
+  "client_id": "100948224222457935406",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/chicagocrimes%40chicago-crimes-02092021.iam.gserviceaccount.com"
+}

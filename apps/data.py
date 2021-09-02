@@ -17,8 +17,8 @@ def app():
 
     def Bigquery():
         ## create a service account, download the json file and export the credentials in the terminal
-        project_id ='chicago-crimes-312005'
-        dataset_id = 'chicago-crimes-312005:chicago_crimes'
+        project_id ='chicago-crimes-02092021'
+        dataset_id = 'chicago-crimes-02092021:chicago_crimes'
         # Create a "Client" object
         client = bigquery.Client(project = project_id)
         # Construct a reference to the "chicago_crime" dataset
@@ -32,7 +32,7 @@ def app():
             return results.to_dataframe() 
 
         query = f''' 
-                    SELECT * FROM `chicago-crimes-312005.chicago_crimes.cleaned_chicago_crimes` LIMIT 1000
+                    SELECT * FROM `chicago-crimes-02092021.chicago_crimes.cleaned_chicago_crimes` LIMIT 1000
                 '''
         ## for query go to big query, then bigquery editor, then click on query table. After that copy the table name from the bigquery editor.
 
